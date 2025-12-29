@@ -1,0 +1,1 @@
+export { ProfessionalHeroSection } from './ProfessionalHeroSection';

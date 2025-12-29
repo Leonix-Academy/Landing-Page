@@ -1,0 +1,1 @@
+export { MinimalPurposeSection } from './MinimalPurposeSection';

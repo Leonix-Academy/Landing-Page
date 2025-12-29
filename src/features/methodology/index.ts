@@ -1,0 +1,1 @@
+export { MinimalMethodologySection } from './MinimalMethodologySection';

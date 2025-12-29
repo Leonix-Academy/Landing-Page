@@ -1,0 +1,1 @@
+export { MinimalAudienceSection } from './MinimalAudienceSection';

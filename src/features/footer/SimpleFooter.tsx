@@ -1,9 +1,17 @@
 import { useScrollTo } from '../../shared/hooks/useScrollTo';
 import { CONTACT_INFO } from '../../shared/constants';
 import logo from '../../assets/leonix-logo.png';
+import { useNavigate } from 'react-router-dom';
 
 export function SimpleFooter() {
   const { scrollToSection, scrollToTop } = useScrollTo();
+  const navigate = useNavigate();
+
+  // Navega a home y luego scrollea a la sección
+  const goHomeAndScroll = (sectionId: string) => {
+    navigate('/', { replace: false });
+    window.setTimeout(() => scrollToSection(sectionId), 80);
+  };
 
   return (
       <footer
@@ -19,7 +27,10 @@ export function SimpleFooter() {
             <div className="min-w-[320px] max-w-[440px]">
               <div
                   className="flex items-center gap-3 cursor-pointer group mb-4"
-                  onClick={scrollToTop}
+                  onClick={() => {
+                    navigate('/');
+                    window.setTimeout(() => scrollToTop(), 50);
+                  }}
               >
                 <img
                     src={logo}
@@ -30,8 +41,9 @@ export function SimpleFooter() {
                 LEONIX ACADEMY
               </span>
               </div>
+
               <p className="text-sm text-slate-500 leading-relaxed">
-                Plataforma educativa de alto rendimiento enfocada <br/>
+                Plataforma educativa de alto rendimiento enfocada <br />
                 en ciencias aplicadas y programación competitiva.
               </p>
             </div>
@@ -45,7 +57,7 @@ export function SimpleFooter() {
                 {['Matemáticas', 'Física', 'Química', 'Programación'].map((curso) => (
                     <li key={curso}>
                       <button
-                          onClick={() => scrollToSection('cursos')}
+                          onClick={() => goHomeAndScroll('cursos')}
                           className="text-sm text-slate-400 hover:text-white transition-colors"
                       >
                         {curso}
@@ -63,7 +75,7 @@ export function SimpleFooter() {
               <ul className="space-y-3">
                 <li>
                   <button
-                      onClick={() => scrollToSection('nosotros')}
+                      onClick={() => goHomeAndScroll('nosotros')}
                       className="text-sm text-slate-400 hover:text-white transition-colors"
                   >
                     Nosotros
@@ -71,7 +83,7 @@ export function SimpleFooter() {
                 </li>
                 <li>
                   <button
-                      onClick={() => scrollToSection('metodologia')}
+                      onClick={() => goHomeAndScroll('metodologia')}
                       className="text-sm text-slate-400 hover:text-white transition-colors"
                   >
                     Metodología
@@ -79,7 +91,10 @@ export function SimpleFooter() {
                 </li>
                 <li>
                   <button
-                      onClick={scrollToTop}
+                      onClick={() => {
+                        navigate('/');
+                        window.setTimeout(() => scrollToTop(), 50);
+                      }}
                       className="text-sm text-slate-400 hover:text-white transition-colors"
                   >
                     Testimonios
@@ -88,7 +103,7 @@ export function SimpleFooter() {
               </ul>
             </div>
 
-            {/* LEGAL */}
+            {/* LEGAL (✅ Router) */}
             <div className="min-w-[220px]">
               <h3 className="text-xs font-bold uppercase tracking-[0.28em] text-white mb-4">
                 Legal
@@ -96,7 +111,10 @@ export function SimpleFooter() {
               <ul className="space-y-3">
                 <li>
                   <button
-                      onClick={() => scrollToSection('terminos')}
+                      onClick={() => {
+                        navigate('/terminos');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
                       className="text-sm text-slate-400 hover:text-white transition-colors"
                   >
                     Términos y Condiciones
@@ -104,7 +122,10 @@ export function SimpleFooter() {
                 </li>
                 <li>
                   <button
-                      onClick={() => scrollToSection('politicas')}
+                      onClick={() => {
+                        navigate('/politicas');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
                       className="text-sm text-slate-400 hover:text-white transition-colors"
                   >
                     Políticas de Seguridad
@@ -134,7 +155,6 @@ export function SimpleFooter() {
                 <span className="text-sm text-slate-500">{CONTACT_INFO.location}</span>
               </div>
             </div>
-
           </div>
 
           {/* Divider */}
@@ -142,7 +162,6 @@ export function SimpleFooter() {
 
           {/* Copyright */}
           <div className="text-center">
-            <br/>
             <p className="text-xs text-slate-600 tracking-wide">
               &copy; 2026 Leonix Academy. Todos los derechos reservados.
             </p>

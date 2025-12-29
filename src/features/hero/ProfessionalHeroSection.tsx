@@ -66,7 +66,7 @@ export function ProfessionalHeroSection() {
             <div className="bg-slate-50 border border-slate-200 rounded-2xl p-10 space-y-8">
               <div className="grid grid-cols-2 gap-8">
                 <div className="space-y-2">
-                  <div className="text-4xl text-slate-900 text-[36px]">1K xD+</div>
+                  <div className="text-4xl text-slate-900">1,000+</div>
                   <div className="text-sm text-slate-600">Estudiantes activos</div>
                 </div>
                 <div className="space-y-2">
@@ -74,7 +74,7 @@ export function ProfessionalHeroSection() {
                   <div className="text-sm text-slate-600">Satisfacción</div>
                 </div>
                 <div className="space-y-2">
-                  <div className="text-4xl text-slate-900">1K xd+</div>
+                  <div className="text-4xl text-slate-900">50+</div>
                   <div className="text-sm text-slate-600">Cursos disponibles</div>
                 </div>
                 <div className="space-y-2">

@@ -2,7 +2,6 @@ import { Menu } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useScrollTo } from '../hooks/useScrollTo';
 import logo from '../../assets/leonix-logo.png';
-//import logo from '../../assets/leonix-logo.png';
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

@@ -210,3 +210,122 @@ html {
 .animate-pulse-glow {
   animation: pulse-glow 3s ease-in-out infinite;
 }
+
+@layer components {
+  /* ===== Legal Pages (Terms / Policy) ===== */
+  .legal-page {
+    @apply bg-white;
+  }
+
+  .legal-wrap {
+    @apply max-w-6xl mx-auto px-6 sm:px-8 pt-28 pb-24;
+  }
+
+  .legal-hero {
+    @apply flex flex-col gap-4;
+  }
+
+  .legal-title {
+    @apply text-4xl sm:text-5xl font-semibold tracking-tight text-slate-900;
+  }
+
+  .legal-subtitle {
+    @apply text-base sm:text-lg text-slate-600 leading-relaxed max-w-3xl;
+  }
+
+  .legal-meta {
+    @apply flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-slate-500;
+  }
+
+  .legal-meta-item {
+    @apply inline-flex items-center gap-2;
+  }
+
+  .legal-back {
+    @apply inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm text-slate-700 shadow-sm hover:bg-slate-50 transition-colors w-fit;
+  }
+
+  .legal-grid {
+    @apply mt-10 grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-8;
+  }
+
+  .legal-card {
+    @apply rounded-2xl border border-slate-200 bg-white shadow-sm;
+  }
+
+  .legal-card-pad {
+    @apply p-6 sm:p-7;
+  }
+
+  .legal-card-title {
+    @apply text-xs font-bold uppercase tracking-[0.28em] text-slate-900;
+  }
+
+  .legal-divider {
+    @apply h-px w-full bg-slate-200/80;
+  }
+
+  .legal-toc {
+    @apply mt-5 space-y-1;
+  }
+
+  .legal-toc-btn {
+    @apply w-full flex items-start gap-4 rounded-xl px-3 py-2 text-left hover:bg-slate-50 transition-colors;
+  }
+
+  .legal-toc-num {
+    @apply w-8 shrink-0 pt-0.5 text-xs font-mono text-slate-400;
+  }
+
+  .legal-toc-text {
+    @apply text-sm text-slate-700 leading-snug;
+  }
+
+  .legal-reco {
+    @apply mt-5 pt-4 border-t border-slate-200 text-xs text-slate-500 leading-relaxed;
+  }
+
+  .legal-content {
+    @apply space-y-12;
+  }
+
+  .legal-section {
+    @apply scroll-mt-28;
+  }
+
+  .legal-h2 {
+    @apply text-2xl sm:text-3xl font-semibold text-slate-900;
+  }
+
+  .legal-p {
+    @apply mt-3 text-slate-600 leading-relaxed;
+  }
+
+  .legal-ul {
+    @apply mt-4 space-y-2 list-disc pl-5 text-slate-600;
+  }
+
+  .legal-callout {
+    @apply rounded-2xl border border-slate-200 bg-slate-50;
+  }
+
+  .legal-callout-pad {
+    @apply p-6 sm:p-7;
+  }
+
+  .legal-callout-title {
+    @apply font-semibold text-slate-900;
+  }
+
+  .legal-input {
+    @apply mt-4 flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3;
+  }
+
+  .legal-input-text {
+    @apply text-sm text-slate-700 font-medium;
+  }
+
+  .legal-copy {
+    @apply ml-auto inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 hover:bg-slate-50 transition-colors;
+  }
+}

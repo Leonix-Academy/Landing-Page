@@ -35,13 +35,19 @@ export function MinimalAudienceSection() {
           {audiences.map((audience, index) => (
             <div key={index} className="group">
               <div className="relative aspect-[4/3] overflow-hidden rounded-xl mb-6 bg-slate-100">
+                {/* Blue overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-cyan-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+
                 <ImageWithFallback
                   src={audience.image}
                   alt={audience.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
+
+                {/* Decorative border */}
+                <div className="absolute inset-0 ring-1 ring-slate-200 rounded-xl group-hover:ring-blue-400 transition-all duration-300" />
               </div>
-              <h3 className="text-xl text-slate-900 mb-3">
+              <h3 className="text-xl text-slate-900 mb-3 font-medium">
                 {audience.title}
               </h3>
               <p className="text-sm text-slate-600 leading-relaxed">

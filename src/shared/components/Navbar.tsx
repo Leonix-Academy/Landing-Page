@@ -33,26 +33,26 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-10">
-            <button onClick={scrollToTop} className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
+            <button onClick={scrollToTop} className="text-sm text-slate-600 hover:text-slate-900 transition-colors cursor-pointer">
               Inicio
             </button>
-            <button onClick={() => scrollToSection('cursos')} className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
+            <button onClick={() => scrollToSection('cursos')} className="text-sm text-slate-600 hover:text-slate-900 transition-colors cursor-pointer">
               Cursos
             </button>
-            <button onClick={() => scrollToSection('nosotros')} className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
+            <button onClick={() => scrollToSection('nosotros')} className="text-sm text-slate-600 hover:text-slate-900 transition-colors cursor-pointer">
               Nosotros
             </button>
-            <button onClick={() => scrollToSection('metodologia')} className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
+            <button onClick={() => scrollToSection('metodologia')} className="text-sm text-slate-600 hover:text-slate-900 transition-colors cursor-pointer">
               Metodología
             </button>
-            <button onClick={() => scrollToSection('contacto')} className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
+            <button onClick={() => scrollToSection('contacto')} className="text-sm text-slate-600 hover:text-slate-900 transition-colors cursor-pointer">
               Contacto
             </button>
           </div>
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <button onClick={() => scrollToSection('contacto')} className="px-6 py-2.5 bg-slate-900 text-white text-sm rounded-md hover:bg-blue-600 transition-all">
+            <button onClick={() => scrollToSection('contacto')} className="px-6 py-2.5 bg-blue-600 text-white text-sm rounded-lg font-medium shadow-md shadow-blue-600/30 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-600/40 hover:scale-105 transition-all duration-300 cursor-pointer">
               Empezar
             </button>
           </div>
@@ -60,7 +60,7 @@ export function Navbar() {
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-md hover:bg-gray-50"
+            className="md:hidden p-2 rounded-md hover:bg-gray-50 cursor-pointer"
           >
             <Menu className="w-5 h-5 text-slate-600" />
           </button>
@@ -70,22 +70,22 @@ export function Navbar() {
         {mobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-200">
             <div className="flex flex-col gap-4">
-              <button onClick={() => { scrollToTop(); setMobileMenuOpen(false); }} className="text-sm text-slate-600 hover:text-slate-900 transition-colors text-left">
+              <button onClick={() => { scrollToTop(); setMobileMenuOpen(false); }} className="text-sm text-slate-600 hover:text-slate-900 transition-colors text-left cursor-pointer">
                 Inicio
               </button>
-              <button onClick={() => handleScrollToSection('cursos')} className="text-sm text-slate-600 hover:text-slate-900 transition-colors text-left">
+              <button onClick={() => handleScrollToSection('cursos')} className="text-sm text-slate-600 hover:text-slate-900 transition-colors text-left cursor-pointer">
                 Cursos
               </button>
-              <button onClick={() => handleScrollToSection('nosotros')} className="text-sm text-slate-600 hover:text-slate-900 transition-colors text-left">
+              <button onClick={() => handleScrollToSection('nosotros')} className="text-sm text-slate-600 hover:text-slate-900 transition-colors text-left cursor-pointer">
                 Nosotros
               </button>
-              <button onClick={() => handleScrollToSection('metodologia')} className="text-sm text-slate-600 hover:text-slate-900 transition-colors text-left">
+              <button onClick={() => handleScrollToSection('metodologia')} className="text-sm text-slate-600 hover:text-slate-900 transition-colors text-left cursor-pointer">
                 Metodología
               </button>
-              <button onClick={() => handleScrollToSection('contacto')} className="text-sm text-slate-600 hover:text-slate-900 transition-colors text-left">
+              <button onClick={() => handleScrollToSection('contacto')} className="text-sm text-slate-600 hover:text-slate-900 transition-colors text-left cursor-pointer">
                 Contacto
               </button>
-              <button onClick={() => handleScrollToSection('contacto')} className="px-6 py-2.5 bg-slate-900 text-white text-sm rounded-md hover:bg-blue-600 transition-all w-full">
+              <button onClick={() => handleScrollToSection('contacto')} className="px-6 py-2.5 bg-blue-600 text-white text-sm rounded-lg font-medium shadow-md shadow-blue-600/30 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-600/40 transition-all w-full cursor-pointer">
                 Empezar
               </button>
             </div>

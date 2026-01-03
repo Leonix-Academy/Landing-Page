@@ -44,13 +44,19 @@ export function WhatsAppButton() {
           </div>
 
           {/* Botón Circular */}
-          <div className="w-14 h-14 bg-slate-950 hover:bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:shadow-green-600/30 transition-all duration-300 cursor-pointer group-hover:scale-110">
+          <div 
+            className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:shadow-blue-600/30 transition-all duration-300 cursor-pointer group-hover:scale-110"
+            style={{ backgroundColor: '#145cfc' }}
+          >
             {/* Tu icono aplicado con tamaño específico */}
             <Whatsapp className="w-8 h-8 text-white" />
           </div>
 
           {/* Efecto de Pulso (Opcional) */}
-          <div className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20 pointer-events-none" />
+          <div 
+            className="absolute inset-0 rounded-full animate-ping opacity-20 pointer-events-none -z-10"
+            style={{ backgroundColor: '#145cfc' }}
+          />
         </div>
       </a>
   );

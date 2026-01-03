@@ -1,6 +1,7 @@
-import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle, Check, Copy } from 'lucide-react';
 import { useState } from 'react';
 import { CONTACT_INFO, FORM_VALIDATION } from '../../shared/constants';
+import messageSentSvg from '../../assets/undraw_message-sent.svg';
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -12,6 +13,7 @@ export function ProfessionalContactSection() {
   });
   const [formStatus, setFormStatus] = useState<FormStatus>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [emailCopied, setEmailCopied] = useState(false);
 
   const validateForm = (): boolean => {
     if (formData.name.length < FORM_VALIDATION.minNameLength) {
@@ -27,7 +29,7 @@ export function ProfessionalContactSection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       setFormStatus('error');
       return;
@@ -37,83 +39,149 @@ export function ProfessionalContactSection() {
     setErrorMessage('');
 
     try {
-      // Simulate API call - Replace with actual backend call later
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Log for development
-      console.log('Form submitted:', formData);
-      
+      // Crear mensaje formateado para WhatsApp
+      const whatsappMessage = `*Nuevo contacto desde Leonix Academy*%0A%0A*Nombre:* ${formData.name}%0A*Email:* ${formData.email}%0A*Mensaje:*%0A${formData.message}`;
+
+      const whatsappUrl = `https://wa.me/${CONTACT_INFO.phoneRaw}?text=${whatsappMessage}`;
+
+      // Abrir WhatsApp en nueva ventana
+      window.open(whatsappUrl, '_blank');
+
       setFormStatus('success');
       setFormData({ name: '', email: '', message: '' });
-      
+
       // Reset success message after 5 seconds
       setTimeout(() => setFormStatus('idle'), 5000);
     } catch (error) {
+      console.error('Error al enviar formulario:', error);
+      setErrorMessage('Hubo un error al procesar tu solicitud. Por favor, intenta nuevamente.');
       setFormStatus('error');
-      setErrorMessage('No se pudo enviar el mensaje. Por favor, intenta nuevamente.');
-      console.error('Error submitting form:', error);
     }
   };
 
-  const contactInfo = [
-    {
-      icon: Mail,
-      label: 'Email',
-      value: CONTACT_INFO.email,
-      subtext: 'Respuesta en 24 horas',
-    },
-    {
-      icon: Phone,
-      label: 'Teléfono',
-      value: CONTACT_INFO.phone,
-      subtext: 'Lun - Vie: 9:00 AM - 6:00 PM',
-    },
-    {
-      icon: MapPin,
-      label: 'Ubicación',
-      value: CONTACT_INFO.location,
-      subtext: 'Clases 100% virtuales',
-    },
-  ];
+  // Copiar email al clipboard
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(CONTACT_INFO.email);
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 2000);
+    } catch (err) {
+      console.error('Error al copiar email:', err);
+    }
+  };
+
+  // WhatsApp link
+  const whatsappUrl = `https://wa.me/${CONTACT_INFO.phoneRaw}?text=${encodeURIComponent(CONTACT_INFO.whatsappMessage)}`;
 
   return (
-    <section id="contacto" className="py-24 bg-slate-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl tracking-tight">
-            Contáctanos
-          </h2>
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-            Completa el formulario y te responderemos a la brevedad
-          </p>
-        </div>
+    <section id="contacto" className="py-24 bg-slate-900 relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl" />
 
-        <div className="grid lg:grid-cols-5 gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="grid lg:grid-cols-2 gap-16">
           {/* Left - Contact Info */}
-          <div className="lg:col-span-2 space-y-8">
-            {contactInfo.map((info, index) => {
-              const Icon = info.icon;
-              return (
-                <div key={index} className="flex gap-4">
-                  <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0">
-                    <Icon className="w-5 h-5 text-slate-400" />
-                  </div>
-                  <div>
-                    <div className="text-sm text-slate-400 mb-1">{info.label}</div>
-                    <div className="text-base">{info.value}</div>
-                    <div className="text-sm text-slate-500 mt-1">{info.subtext}</div>
+          <div className="flex flex-col justify-between space-y-8">
+            <div className="space-y-4">
+              <h2 className="text-4xl text-white tracking-tight">
+                Contáctanos
+              </h2>
+              <p className="text-lg text-slate-400 leading-relaxed">
+                Estamos aquí para responder tus preguntas y ayudarte a comenzar tu camino de aprendizaje
+              </p>
+            </div>
+
+            {/* Contact info first */}
+            <div className="space-y-6 flex-grow">{/* Email con copy */}
+              <div className="flex items-start gap-4 group">
+                <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-600 transition-colors duration-300">
+                  <Mail className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors duration-300" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-sm text-slate-500 mb-1">Email</h3>
+                  <div className="relative inline-block">
+                    <button
+                      onClick={copyEmail}
+                      className="group/email flex items-center gap-2 text-base text-white hover:text-blue-400 transition-colors cursor-pointer"
+                    >
+                      <span>{CONTACT_INFO.email}</span>
+                      {emailCopied ? (
+                        <Check className="w-4 h-4 text-green-400" />
+                      ) : (
+                        <Copy className="w-4 h-4 opacity-0 group-hover/email:opacity-100 transition-opacity" />
+                      )}
+                    </button>
+                    {emailCopied && (
+                      <div className="absolute -top-10 left-0 bg-green-600 text-white text-xs px-3 py-1.5 rounded-md shadow-lg animate-in fade-in slide-in-from-bottom-2 duration-200 whitespace-nowrap">
+                        ¡Email copiado!
+                      </div>
+                    )}
                   </div>
                 </div>
-              );
-            })}
+              </div>
+
+              {/* Phone con WhatsApp */}
+              <div className="flex items-start gap-4 group">
+                <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-600 transition-colors duration-300">
+                  <Phone className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors duration-300" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-sm text-slate-500 mb-1">Teléfono / WhatsApp</h3>
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-base text-white hover:text-blue-400 transition-colors cursor-pointer"
+                  >
+                    {CONTACT_INFO.phone}
+                  </a>
+                </div>
+              </div>
+
+              {/* Location */}
+              <div className="flex items-start gap-4 group">
+                <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-600 transition-colors duration-300">
+                  <MapPin className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors duration-300" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-sm text-slate-500 mb-1">Ubicación</h3>
+                  <p className="text-base text-white">{CONTACT_INFO.location}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* SVG in a “matching” container so it feels part of the layout */}
+            <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6">
+              <div className="flex flex-col sm:flex-row items-center sm:items-end justify-between gap-6">
+                <div className="text-center sm:text-left">
+                  <p className="text-sm text-slate-400">
+                    ¿Listo para escribirnos?
+                  </p>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Completa el formulario y se abrirá WhatsApp con tu mensaje.
+                  </p>
+                </div>
+
+                <img
+                  src={messageSentSvg}
+                  alt="Mensaje enviado"
+                  className="w-auto h-24 sm:h-28 lg:h-32 opacity-80 hover:opacity-90 transition-opacity duration-300 select-none"
+                />
+              </div>
+            </div>
           </div>
 
-          {/* Right - Form */}
-          <div className="lg:col-span-3">
+          {/* Right - Contact Form */}
+          <div className="bg-slate-800 border border-slate-700 rounded-2xl p-8">
+            <h3 className="text-2xl text-white mb-6">
+              Envíanos un mensaje
+            </h3>
+
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Name */}
+              {/* Name Input */}
               <div>
-                <label htmlFor="name" className="block text-sm text-slate-300 mb-2">
+                <label htmlFor="name" className="block text-sm text-slate-400 mb-2">
                   Nombre completo
                 </label>
                 <input
@@ -121,15 +189,15 @@ export function ProfessionalContactSection() {
                   id="name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:border-transparent transition-all text-sm"
+                  className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-600 transition-colors text-sm"
                   placeholder="Tu nombre"
                   required
                 />
               </div>
 
-              {/* Email */}
+              {/* Email Input */}
               <div>
-                <label htmlFor="email" className="block text-sm text-slate-300 mb-2">
+                <label htmlFor="email" className="block text-sm text-slate-400 mb-2">
                   Correo electrónico
                 </label>
                 <input
@@ -137,15 +205,15 @@ export function ProfessionalContactSection() {
                   id="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:border-transparent transition-all text-sm"
+                  className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-600 transition-colors text-sm"
                   placeholder="tu@email.com"
                   required
                 />
               </div>
 
-              {/* Message */}
+              {/* Message Input */}
               <div>
-                <label htmlFor="message" className="block text-sm text-slate-300 mb-2">
+                <label htmlFor="message" className="block text-sm text-slate-400 mb-2">
                   Mensaje
                 </label>
                 <textarea
@@ -153,21 +221,39 @@ export function ProfessionalContactSection() {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   rows={5}
-                  className="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:border-transparent resize-none transition-all text-sm"
-                  placeholder="¿En qué podemos ayudarte?"
+                  className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-600 transition-colors resize-none text-sm"
+                  placeholder="Cuéntanos cómo podemos ayudarte..."
                   required
                 />
               </div>
+
+              {/* Error Message */}
+              {formStatus === 'error' && errorMessage && (
+                <div className="flex items-center gap-2 p-4 bg-red-900/20 border border-red-800 rounded-lg">
+                  <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
+                  <p className="text-sm text-red-400">{errorMessage}</p>
+                </div>
+              )}
+
+              {/* Success Message */}
+              {formStatus === 'success' && (
+                <div className="flex items-center gap-2 p-4 bg-green-900/20 border border-green-800 rounded-lg">
+                  <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0" />
+                  <p className="text-sm text-green-400">
+                    ¡Mensaje enviado! Te contactaremos pronto.
+                  </p>
+                </div>
+              )}
 
               {/* Submit Button */}
               <button
                 type="submit"
                 disabled={formStatus === 'submitting'}
-                className="w-full px-6 py-3 bg-white text-slate-900 rounded-lg hover:bg-slate-100 transition-all flex items-center justify-center gap-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all flex items-center justify-center gap-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-600/30 hover:shadow-xl hover:shadow-blue-600/40 cursor-pointer"
               >
                 {formStatus === 'submitting' ? (
                   <>
-                    <div className="w-4 h-4 border-2 border-slate-300 border-t-slate-900 rounded-full animate-spin" />
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                     Enviando...
                   </>
                 ) : (
@@ -177,26 +263,6 @@ export function ProfessionalContactSection() {
                   </>
                 )}
               </button>
-
-              {/* Success Message */}
-              {formStatus === 'success' && (
-                <div className="flex items-center gap-3 p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
-                  <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <p className="text-sm text-green-400">
-                    ¡Mensaje enviado! Nos pondremos en contacto contigo pronto.
-                  </p>
-                </div>
-              )}
-
-              {/* Error Message */}
-              {formStatus === 'error' && (
-                <div className="flex items-center gap-3 p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
-                  <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
-                  <p className="text-sm text-red-400">
-                    {errorMessage}
-                  </p>
-                </div>
-              )}
             </form>
           </div>
         </div>

@@ -82,7 +82,7 @@ export function ProfessionalContactSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="grid lg:grid-cols-2 gap-16">
           {/* Left - Contact Info */}
-          <div className="space-y-8">
+          <div className="flex flex-col justify-between space-y-8">
             <div className="space-y-4">
               <h2 className="text-4xl text-white tracking-tight">
                 Contáctanos
@@ -92,8 +92,8 @@ export function ProfessionalContactSection() {
               </p>
             </div>
 
-            <div className="space-y-6">
-              {/* Email con copy */}
+            {/* Contact info first */}
+            <div className="space-y-6 flex-grow">{/* Email con copy */}
               <div className="flex items-start gap-4 group">
                 <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-600 transition-colors duration-300">
                   <Mail className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors duration-300" />
@@ -151,13 +151,24 @@ export function ProfessionalContactSection() {
               </div>
             </div>
 
-            {/* SVG Illustration */}
-            <div className="mt-10 flex justify-center lg:justify-start">
-              <img
-                src={messageSentSvg}
-                alt="Mensaje enviado"
-                className="w-56 h-auto opacity-70 hover:opacity-90 transition-opacity duration-300"
-              />
+            {/* SVG in a “matching” container so it feels part of the layout */}
+            <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6">
+              <div className="flex flex-col sm:flex-row items-center sm:items-end justify-between gap-6">
+                <div className="text-center sm:text-left">
+                  <p className="text-sm text-slate-400">
+                    ¿Listo para escribirnos?
+                  </p>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Completa el formulario y se abrirá WhatsApp con tu mensaje.
+                  </p>
+                </div>
+
+                <img
+                  src={messageSentSvg}
+                  alt="Mensaje enviado"
+                  className="w-auto h-24 sm:h-28 lg:h-32 opacity-80 hover:opacity-90 transition-opacity duration-300 select-none"
+                />
+              </div>
             </div>
           </div>
 

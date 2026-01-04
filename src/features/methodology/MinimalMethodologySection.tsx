@@ -1,5 +1,6 @@
 import { CheckCircle2 } from 'lucide-react';
 import { useScrollTo } from '../../shared/hooks/useScrollTo';
+import meetingSvg from '../../assets/undraw_online-meeting.svg';
 
 export function MinimalMethodologySection() {
   const { scrollToSection } = useScrollTo();
@@ -82,26 +83,21 @@ export function MinimalMethodologySection() {
             </div>
           </div>
 
-          {/* Right - Features */}
-          <div className="bg-white border border-slate-200 rounded-2xl p-10 shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <h3 className="text-2xl text-slate-900 mb-8">
-              Qué Incluye
-            </h3>
-            <div className="space-y-4">
-              {features.map((feature, index) => (
-                <div key={index} className="flex items-start gap-3 group">
-                  <div className="w-5 h-5 rounded bg-blue-600 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-300">
-                    <CheckCircle2 className="w-3 h-3 text-white" />
-                  </div>
-                  <span className="text-base text-slate-700">{feature}</span>
-                </div>
-              ))}
+          {/* Right - Features Card with SVG */}
+          <div className="bg-white border border-slate-200 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+            {/* SVG Illustration */}
+            <div className="mb-6">
+              <img
+                src={meetingSvg}
+                alt="Clases online interactivas"
+                className="w-full h-auto max-w-sm mx-auto"
+              />
             </div>
 
-            <div className="mt-10 pt-8 border-t border-slate-200">
-              <button 
+            <div className="mt-8 pt-6 border-t border-slate-200">
+              <button
                 onClick={() => scrollToSection('contacto')}
-                className="w-full px-6 py-3 bg-slate-900 text-white rounded-lg hover:bg-blue-600 transition-all text-sm shadow-lg hover:shadow-xl hover:shadow-blue-600/20"
+                className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all text-sm shadow-lg shadow-blue-600/30 hover:shadow-xl hover:shadow-blue-600/40 cursor-pointer"
               >
                 Solicitar información
               </button>

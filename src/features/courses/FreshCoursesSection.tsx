@@ -77,7 +77,7 @@ export function FreshCoursesSection() {
             return (
               <div 
                 key={index} 
-                className="group relative"
+                className="group relative cursor-pointer"
               >
                 {/* Featured badge */}
                 {course.featured && (

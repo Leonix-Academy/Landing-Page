@@ -27,7 +27,7 @@ export function MinimalPurposeSection() {
             </h2>
 
             <p className="text-lg text-slate-600 leading-relaxed">
-              Somos una plataforma educativa enfocada en reforzar conocimientos fundamentales en ciencias y programación.
+              Somos una plataforma educativa enfocada en reforzar conocimientos fundamentales en ciencias, letras y programación.
             </p>
 
             <p className="text-base text-slate-600 leading-relaxed">
@@ -42,7 +42,7 @@ export function MinimalPurposeSection() {
               </div>
               <div>
                 <h3 className="text-base font-medium text-slate-900 mb-1">Metodología probada</h3>
-                <p className="text-sm text-slate-600">Enfoque estructurado que ha ayudado a cientos de estudiantes</p>
+                <p className="text-sm text-slate-600">Enfoque estructurado que ha ayudado a una gran cantidad de estudiantes</p>
               </div>
             </div>
 
@@ -53,8 +53,8 @@ export function MinimalPurposeSection() {
                 </svg>
               </div>
               <div>
-                <h3 className="text-base font-medium text-slate-900 mb-1">Aprendizaje flexible</h3>
-                <p className="text-sm text-slate-600">Estudia a tu propio ritmo, cuando y donde quieras</p>
+                <h3 className="text-base font-medium text-slate-900 mb-1">Horarios flexible</h3>
+                <p className="text-sm text-slate-600">Estudia en horarios que se ajusten a tus necesidades</p>
               </div>
             </div>
           </div>

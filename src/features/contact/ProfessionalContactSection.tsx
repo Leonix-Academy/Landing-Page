@@ -9,6 +9,7 @@ export function ProfessionalContactSection() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     message: '',
   });
   const [formStatus, setFormStatus] = useState<FormStatus>('idle');
@@ -40,15 +41,28 @@ export function ProfessionalContactSection() {
 
     try {
       // Crear mensaje formateado para WhatsApp
-      const whatsappMessage = `*Nuevo contacto desde Leonix Academy*%0A%0A*Nombre:* ${formData.name}%0A*Email:* ${formData.email}%0A*Mensaje:*%0A${formData.message}`;
+      const whatsappMessage = `*Nuevo contacto desde Leonix Academy*%0A%0A*Nombre:* ${formData.name}%0A*Email:* ${formData.email}%0A*Teléfono:* ${formData.phone || 'No proporcionado'}%0A*Mensaje:*%0A${formData.message}`;
 
       const whatsappUrl = `https://wa.me/${CONTACT_INFO.phoneRaw}?text=${whatsappMessage}`;
+
+      // Crear mensaje para correo electrónico
+      const emailSubject = `Consulta información ${formData.name} ${formData.phone || ''}`.trim();
+      const emailBody = `Nuevo contacto desde Leonix Academy\n\nNombre: ${formData.name}\nEmail: ${formData.email}\nTeléfono: ${formData.phone || 'No proporcionado'}\n\nMensaje:\n${formData.message}`;
+      const emailUrl = `mailto:${CONTACT_INFO.email}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
 
       // Abrir WhatsApp en nueva ventana
       window.open(whatsappUrl, '_blank');
 
+      // Abrir cliente de correo usando elemento temporal para evitar redirección
+      const mailLink = document.createElement('a');
+      mailLink.href = emailUrl;
+      mailLink.target = '_blank';
+      document.body.appendChild(mailLink);
+      mailLink.click();
+      document.body.removeChild(mailLink);
+
       setFormStatus('success');
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', message: '' });
 
       // Reset success message after 5 seconds
       setTimeout(() => setFormStatus('idle'), 5000);
@@ -208,6 +222,21 @@ export function ProfessionalContactSection() {
                   className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-600 transition-colors text-sm"
                   placeholder="tu@email.com"
                   required
+                />
+              </div>
+
+              {/* Phone Input */}
+              <div>
+                <label htmlFor="phone" className="block text-sm text-slate-400 mb-2">
+                  Número de teléfono
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-600 transition-colors text-sm"
+                  placeholder="+51 999 999 999"
                 />
               </div>
 
